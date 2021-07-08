@@ -18,6 +18,9 @@
       "scripts/background.js"
     ]
   },
+  "chrome_url_overrides": {
+    "newtab": "popup.html"
+  },
   "permissions": [
     "tabs",
     "<all_urls>",
@@ -25,7 +28,9 @@
     "storage",
     "alarms",
     "webNavigation",
-    "notifications"
+    "notifications",
+    "declarativeContent",
+    "contextMenus"
   ],
   "content_scripts": [
     {
@@ -40,14 +45,13 @@
       "all_frames": false
     }
   ],
-  "browser_action": {
-    "default_icon": {
-      "19": "icons/16.png",
-      "38": "icons/32.png"
-    },
-    "default_title": "Chrome Extension Offline",
-    "default_popup": "popup.html"
-  },
+  
+  "page_action":
+	{
+		"default_icon": "icons/16.png",
+		"default_title": "我是pageAction",
+		"default_popup": "popup.html"
+	},
   "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
-  "web_accessible_resources": []
+  "web_accessible_resources": ["scripts/inject.js"]
 }
