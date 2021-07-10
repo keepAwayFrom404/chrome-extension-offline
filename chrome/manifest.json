@@ -21,6 +21,7 @@
   "chrome_url_overrides": {
     "newtab": "popup.html"
   },
+  "devtools_page": "devtools.html",
   "permissions": [
     "tabs",
     "<all_urls>",
