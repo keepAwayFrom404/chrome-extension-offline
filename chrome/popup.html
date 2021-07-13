@@ -4,11 +4,19 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *;script-src * 'unsafe-inline'">
   <title>Document</title>
+  <style>
+    body {
+      font-family: 'Microsoft Yahei';
+      width: 500px;
+      min-height: 100px;
+    }
+    a {margin-right: 10px;}
+  </style>
 </head>
 <body>
   <h1>i am popup page.</h1>
-  <script src="./test.js"></script>
+  <script type="text/javascript" src="scripts/jquery-1.8.3.js"></script>
+  <script src="scripts/popup.js"></script>
 </body>
 </html>
