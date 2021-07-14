@@ -1,14 +1,26 @@
 console.log('background script done!');
 console.log(chrome, 'chrome ====>');
+// chrome.contextMenus.create({
+//   title: '使用百度搜索：%s',
+//   contexts: ['selection'],
+//   onclick: function(params) {
+//     chrome.tabs.create({
+//       url: 'https://www.baidu.com/s?ie=utf-8&wd=' + encodeURI(params.selectionText)
+//     })
+//   }
+	
+// })
 chrome.contextMenus.create({
-  title: '使用百度搜索：%s',
-  contexts: ['selection'],
-  onclick: function(params) {
-    chrome.tabs.create({
-      url: 'https://www.baidu.com/s?ie=utf-8&wd=' + encodeURI(params.selectionText)
-    })
-  }
-})
+	title: "测试右键菜单",
+	onclick: function(){
+		chrome.notifications.create(null, {
+			type: 'basic',
+			iconUrl: 'icons/icon.png',
+			title: '这是标题',
+			message: '您刚才点击了自定义右键菜单！'
+		});
+	}
+});
 chrome.runtime.onInstalled.addListener(function(){
 	chrome.declarativeContent.onPageChanged.removeRules(undefined, function(){
 		chrome.declarativeContent.onPageChanged.addRules([
