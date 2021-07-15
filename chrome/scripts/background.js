@@ -13,9 +13,10 @@ console.log(chrome, 'chrome ====>');
 chrome.contextMenus.create({
 	title: "测试右键菜单",
 	onclick: function(){
+		console.log('click')
 		chrome.notifications.create(null, {
 			type: 'basic',
-			iconUrl: 'icons/icon.png',
+			iconUrl: 'icons/16.png',
 			title: '这是标题',
 			message: '您刚才点击了自定义右键菜单！'
 		});
