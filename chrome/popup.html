@@ -17,7 +17,12 @@
 <body>
   <h1>i am popup page.</h1>
   <a href="#" id="show_notification">显示桌面通知</a>
-  <a href="#" id="send_message_to_content_script">popup主动发消息给content</a>
+  <h2>popup与content-script交互</h2>
+	<div>
+		<a href="#" id="send_message_to_content_script">popup主动发消息给content</a>
+		<a href="#" id="connect_to_content_script">长连接发送消息到content-script</a>
+	</div>
+  
   <script type="text/javascript" src="scripts/jquery-1.8.3.js"></script>
   <script src="scripts/popup.js"></script>
 </body>

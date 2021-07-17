@@ -34,4 +34,5 @@ popup页面：点击图标展示的页面，生命周期比较短，失去焦点
 
 ## 页面间通信
 1. popup与background: popup可以直接调用background的js方法，也可以直接访问background的dom；background可以通过getViews获取popup（前提是popup页面已经打开）
-2. popup/background与content：通过tabs.sendMessage/runtime.onMessage进行发送和接收消息，双方通信直接发送JSON对像，不是json字符串，也可以发送字符串。
+2. popup/background与content：通过tabs.sendMessage/runtime.onMessage进行发送和接收消息，双方通信直接发送JSON对像，不是json字符串，也可以发送字符串；content发送消息给background类似,content向popup发送消息的前提是popup打开，否则需要background中转；如果popup和background同时监听，那么他们可以同时收到消息，但是只有一个可以sendResponse，一个发送了另一个就无效了。
+3. 注入脚本（页面内脚本）与content通信：content与页面脚本之间唯一共享的东西是页面的dom元素，可以使用window.postMessage/window.addEventListener（推荐）或者自定义DOM事件进行监听；上面设及的连接都是短链接，可以使用connect进行长连接（类似webScoket）

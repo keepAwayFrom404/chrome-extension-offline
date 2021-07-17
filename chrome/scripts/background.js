@@ -100,3 +100,10 @@ console.log(views);
 if(views.length) {
 	console.log(views[0].location.href);
 }
+
+// 接收消息
+chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
+	console.log('收到content的消息：');
+	console.log(request, sender, sendResponse);
+	sendResponse('我是后台，收到了你的消息'+JSON.stringify(request))
+})

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <h1>我只是一个测试的页面</h1>
+  <div id="myCustomEventDiv"></div>
+  <script>
+    // 与content通信方法一: postMessage
+    window.postMessage({test: '你好'}, '*')
+
+    // 与content通信方法二: 自定义事件
+    const customEvent = document.createEvent('Event')
+    customEvent.initEvent('myCustomEvent', true, true)
+    function fireCustomEvent(data) {
+      const hiddenDiv = document.getElementById('myCustomEventDiv')
+      hiddenDiv.innerText = data
+      hiddenDiv.dispatchEvent(customEvent)
+    }
+    setTimeout(() => {
+      fireCustomEvent('你好， 我是普通的js!')
+    }, 1000);
+  </script>
+</body>
+</html>

@@ -47,3 +47,16 @@ $('#send_message_to_content_script').click(() => {
   })
 })
 
+// 使用长连接发信息
+$('#connect_to_content_script').click(() => {
+  getCurrentTabId(tabId => {
+    const port = chrome.tabs.connect(tabId, {name: 'test-connect'})
+    port.postMessage({question: '你是谁呀？'})
+    port.onMessage.addListener(function(msg) {
+      alert('收到消息：'+msg.answer)
+      if(msg.answer && msg.answer.startsWith('我是')) {
+        port.postMessage({question: '哦哦，原来是你！'})
+      }
+    })
+  })
+})
