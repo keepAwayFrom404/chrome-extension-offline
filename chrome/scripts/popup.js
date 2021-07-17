@@ -4,6 +4,9 @@ $(function() {
     console.log(items, '1111');
     document.body.style.backgroundColor = items.color
   })
+
+  // 初始化国际化
+  $('#test_i18n').html(chrome.i18n.getMessage('helloWorld'))
 })
 $('#show_notification').click(() => {
   chrome.notifications.create(null, {
@@ -24,7 +27,7 @@ function getCurrentTabId(callback) {
     if(callback) callback(tabs.length ? tabs[0].id : null)
   })
 }
-
+// 当窗口最小化时
 function getCurrentTabId2(callback) {
   chrome.windows.getCurrent(function(currentWindow) {
     chrome.tabs.query({active: true, windowId: currentWindow.id}, function(tabs) {
@@ -60,3 +63,28 @@ $('#connect_to_content_script').click(() => {
     })
   })
 })
+
+// 向页面注入js
+function executeScriptToCurrentTab(code) {
+  getCurrentTabId((tabId) => {
+    chrome.tabs.executeScript(tabId, {code})
+  })
+}
+
+$('#update_bg_color').click(() => {
+	executeScriptToCurrentTab('document.body.style.backgroundColor="red";')
+});
+
+// 向页面注入css
+function executeCSSToCurrentTab() {
+  getCurrentTabId((tabId) => {
+    chrome.tabs.insertCSS(tabId, {file: '/css/inject.css'})
+  })
+}
+
+$('#inject_css').click(() => {
+	executeCSSToCurrentTab()
+});
+
+
+

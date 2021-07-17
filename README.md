@@ -36,3 +36,15 @@ popup页面：点击图标展示的页面，生命周期比较短，失去焦点
 1. popup与background: popup可以直接调用background的js方法，也可以直接访问background的dom；background可以通过getViews获取popup（前提是popup页面已经打开）
 2. popup/background与content：通过tabs.sendMessage/runtime.onMessage进行发送和接收消息，双方通信直接发送JSON对像，不是json字符串，也可以发送字符串；content发送消息给background类似,content向popup发送消息的前提是popup打开，否则需要background中转；如果popup和background同时监听，那么他们可以同时收到消息，但是只有一个可以sendResponse，一个发送了另一个就无效了。
 3. 注入脚本（页面内脚本）与content通信：content与页面脚本之间唯一共享的东西是页面的dom元素，可以使用window.postMessage/window.addEventListener（推荐）或者自定义DOM事件进行监听；上面设及的连接都是短链接，可以使用connect进行长连接（类似webScoket）
+
+## 其他
+1. 动态注入或执行JS：虽然background和popup无法直接访问页面dom，但可以通过executeScript来执行脚本，从而访问web页面的dom（这种方式不能直接操作页面js）
+2. 动态注入css：insertCSS
+3. 获取当前窗口ID：chrome.windows.getCurrnet(function(currentWindow){})
+4. 获取当前标签页ID：见popup.js代码
+5. 本地存储：chrome.storage是针对插件全局的即使在background存储的数据在content也能获取；.sync可以根据当前登陆用户自动同步，这台电脑的修改自动到其他电脑（storage的权限有sync和local两种）
+6. webRequest：该系列API可以对http请求进行恩义的修改定制
+7. 如何让popup不关闭：在对popup页面审查元素的时候popup会强制打开无法关闭，只有控制台关闭才能关闭popup
+8. 不支持内联js的执行，可以使用事件绑定，通过id或者class
+9. 注入css应该特别小心（注入的css优先级仅次于默认样式）
+10. END: 撒花🎉：https://www.cnblogs.com/liuxianan/p/chrome-plugin-develop.html#popup%E5%92%8Cbackground

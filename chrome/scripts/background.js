@@ -107,3 +107,25 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
 	console.log(request, sender, sendResponse);
 	sendResponse('我是后台，收到了你的消息'+JSON.stringify(request))
 })
+
+// 是否现实图片
+let showImage
+chrome.storage.sync.get({showImage: true}, function(items) {
+	showImage = items.showImage
+})
+// web请求监听，最后一个参数表示阻塞式，需单独声明权限：webRequestBlocking
+chrome.webRequest.onBeforeRequest.addListener(details => {
+	console.log(details.type, 'details.type ========>');
+	if(!showImage && details.type === 'image') return {cancel: true}
+	// 简单的音视频检测
+	// 大部分网站视频的type并不是media，且视频做了防下载处理，所以这里仅仅是为了演示效果，无实际意义
+	if(details.type === 'media') {
+		chrome.notifications.create(null, {
+			type: 'basic',
+			iconUrl: 'icons/32.png',
+			title: '监测到音视频',
+			message: '音视频地址：'+details.url
+		})
+	}
+}, {urls: ['<all_urls>']}, ['blocking'])
+

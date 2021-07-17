@@ -2,7 +2,8 @@
   "name": "Chrome Extension Offline",
   "version": "1.0.0",
   "manifest_version": 2,
-  "description": "谷歌离线插件",
+  "description": "__MSG_pluginDesc__",
+  "default_locale": "zh_CN",
   "author": "lijh <xff777qq.com>",
   "homepage_url": "https://github.com/keepAwayFrom404",
   "icons": {
@@ -31,7 +32,11 @@
     "webNavigation",
     "notifications",
     "declarativeContent",
-    "contextMenus"
+    "contextMenus",
+    "http://*/*", 
+    "https://*/*",
+    "webRequest",
+    "webRequestBlocking"
   ],
   "options_page": "options.html",
   
