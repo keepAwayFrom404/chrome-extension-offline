@@ -90,3 +90,13 @@ function openUrlCurrentTab(url)
 		chrome.tabs.update(tabId, {url: url});
 	})
 }
+
+function test() {
+	console.log('我是background！');
+}
+
+const views = chrome.extension.getViews({type: 'popup'})
+console.log(views);
+if(views.length) {
+	console.log(views[0].location.href);
+}

@@ -14,3 +14,36 @@ $('#show_notification').click(() => {
     imageUrl: 'icons/test.png'
   })
 })
+const bg = chrome.extension.getBackgroundPage()
+bg.test() // 访问bg的方法
+// alert(bg.document.body.innerHTML) // 访问bg的dom
+
+// 获取当前选项卡ID
+function getCurrentTabId(callback) {
+  chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+    if(callback) callback(tabs.length ? tabs[0].id : null)
+  })
+}
+
+function getCurrentTabId2(callback) {
+  chrome.windows.getCurrent(function(currentWindow) {
+    chrome.tabs.query({active: true, windowId: currentWindow.id}, function(tabs) {
+      if(callback) callback(tabs.length ? tabs[0].id : null)
+    })
+  })
+}
+
+function sendMessageToContentScript(message, callback) {
+	getCurrentTabId2((tabId) => {
+    chrome.tabs.sendMessage(tabId, message, function(response) {
+      if(callback) callback(response)
+    })
+  })
+}
+
+$('#send_message_to_content_script').click(() => {
+  sendMessageToContentScript('你好，我是popup！', function(response) {
+    if(response) alert('来自content的回复：'+response);
+  })
+})
+

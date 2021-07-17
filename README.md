@@ -31,3 +31,7 @@ popup页面：点击图标展示的页面，生命周期比较短，失去焦点
 ｜popup js｜popup页面 右键审查元素｜
 ｜background js｜插件管理页面点击背景页即刻｜
 ｜devtools js｜直接打开插件的该页面（未找到其他有效方法）｜
+
+## 页面间通信
+1. popup与background: popup可以直接调用background的js方法，也可以直接访问background的dom；background可以通过getViews获取popup（前提是popup页面已经打开）
+2. popup/background与content：通过tabs.sendMessage/runtime.onMessage进行发送和接收消息，双方通信直接发送JSON对像，不是json字符串，也可以发送字符串。
